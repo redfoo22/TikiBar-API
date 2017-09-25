@@ -33,9 +33,3 @@ npm run localdev
 npm run build-dev
 
 ```
-
-#### Other startup scripts are for running with pm2 on the live server.
-
-* /dev (request form https://api.devslopes.com/dev/v1/endpoint)
-* /staging (request form https://api.devslopes.com/staging/v1/endpoint)
-* /production (request form https://api.devslopes.com/v1/endpoint)
