@@ -4,6 +4,7 @@ import express from 'express';
 import config from '../config';
 import initializeDb from '../db';
 import userData from '../controller/userData';
+import journeys from '../controller/journey';
 import comments from '../controller/comment';
 
 let router = express();
@@ -18,6 +19,7 @@ initializeDb( db => {
 
 	// api routes v1 (/v1)
 	router.use('/userData', userData({ config, db }));
+	router.use('/journeys', comments({config, db}));
 	router.use('/comments', comments({config, db}));
 });
 

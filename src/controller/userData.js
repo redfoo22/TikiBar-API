@@ -24,25 +24,41 @@ export default ({ config, db }) => {
       });
   });
 
-  // GET Specific users userData byId
-  // '/v1/userData/byId/:id'
-  api.get('/byId/:id', (req, res) => {
-    UserData
-      .find({ _id: req.params.id })
-      .exec((err, userData) => {
-        if (err) {
-          res.status(409).json({ message: `An error occurred: ${err.message}` });
-          return;
-        }
-        res.status(200).json(userData);
-      });
-  });
+// GET Specific users userData byId
+// '/v1/userData/byId/:id'
+api.get('/byId/:id', (req, res) => {
+  UserData
+    .findById(req.params.id)
+    .populate({
+        path: 'currentLocation',
+        model: 'Location'
+      })
+    .populate({
+      path: 'journeys',
+      model: 'Journey'
+    })
+    .exec((err, userData) => {
+      if (err) {
+        res.status(409).json({ message: `An error occurred: ${err.message}` });
+        return;
+      }
+      res.status(200).json(userData);
+    });
+});
 
   // GET Specific users by displayName
 // '/v1/userData/byDisplayName/:displayName'
 api.get('/byDisplayName/:displayName', (req, res) => {
   UserData
     .findOne({ 'displayName': req.params.displayName })
+    .populate({
+        path: 'currentLocation',
+        model: 'Location'
+      })
+    .populate({
+      path: 'journeys',
+      model: 'Journey'
+    })
     .exec((err, userData) => {
       if (err) {
         res.status(409).json({ message: `An error occurred: ${err.message}` });
@@ -60,22 +76,23 @@ api.get('/byDisplayName/:displayName', (req, res) => {
   // '/v1/userData/addUser'
   api.post('/addUser', (req, res) => {
     const displayName = req.body.displayName;
-    const profileImageUrl = req.body.profileImageUrl;
+
     if (displayName == null) {
       res.status(409).json({ message: `You must enter a Display name` });
       return;
     }
-      let newUserData = new UserData({
-        displayName: displayName,
-        profileImageUrl: profileImageUrl
-      });
-      newUserData.save(err => {
-        if (err) {
-          res.status(409).json({ message: `An error occurred: ${err.message}` });
-        } else {
-          res.send(newUserData);
-        }
-      });
+
+    let newUserData = new UserData({
+      displayName: displayName
+    });
+
+    newUserData.save(err => {
+      if (err) {
+        res.status(409).json({ message: `An error occurred: ${err.message}` });
+      } else {
+        res.send(newUserData);
+      }
+    });
   });
 
   return api;
