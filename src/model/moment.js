@@ -6,6 +6,7 @@ let Schema = mongoose.Schema;
 let ObjectId = mongoose.Schema.Types.ObjectId;
 
 let momentSchema = new Schema({
+  journeyId : { type: ObjectId, ref: 'Journey', required: [true, 'Error validating journeyId'] },
   title: { type: String, default: "" },
   description: { type: String, default: "" },
   mediaUrls: { type: [String], default: [""]},

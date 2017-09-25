@@ -9,4 +9,4 @@ let locationSchema = new Schema({
   longitude: { type: Number, default: -122.703 }
 });
 
-module.exports = mongoose.model('Location', userDataSchema, 'location');
+module.exports = mongoose.model('Location', locationSchema, 'location');
