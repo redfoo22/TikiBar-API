@@ -1,0 +1,85 @@
+{
+  "name": "TikiBar-API",
+  "version": "0.0.1",
+  "description": "TikiBar ES6 RESTful Express API",
+  "main": "dist",
+  "scripts": {
+    "localdev": "NODE_ENV=localdev nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "build-dev": "babel src -s -D -d dev --presets es2015,stage-0",
+    "dev": "NODE_ENV=development pm2 start ./dev --name TikiBar-api-develop",
+    "build-staging": "babel src -s -D -d staging --presets es2015,stage-0",
+    "staging": "NODE_ENV=staging pm2 start ./staging --name TikiBar-api-staging",
+    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "start": "NODE_ENV=production pm2 start ./dist --name TikieBar-api-production",
+    "prestart": "npm run -s build",
+    "lint": "eslint src",
+    "test": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/mocha ./dist/**/*.test.js",
+    "tdd": "NODE_ENV=test nodemon -w src --exec \"babel src -s -D -d dist --presets es2015,stage-0 &&./node_modules/.bin/mocha ./dist/**/*.test.js\""
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redfoo22/TikiBar-API"
+  },
+  "author": "Jacob Luetzow <jacob@devslopes.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cors": "^2.8.0",
+    "express": "^4.14.0",
+    "extend": "^3.0.0",
+    "mongodb": "^2.2.12",
+    "mongoose": "^4.5.10",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-id-token": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "passport-oauth2-client-password": "^0.1.2",
+    "path": "^0.12.7",
+    "resource-router-middleware": "^0.6.0",
+    "restful-mongoose": "^1.0.0"
+  },
+  "devDependencies": {
+    "async": "^2.1.5",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "bluebird": "^3.4.6",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "eslint": "^3.17.1",
+    "mocha": "^3.0.2",
+    "nodemon": "^1.11.0",
+    "should": "^11.1.1",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^2.0.0"
+  },
+  "homepage": "https://github.com/redfoo22/TikiBar-API/blob/master/README.md",
+  "keywords": [
+    "express",
+    "es6",
+    "rest",
+    "api"
+  ]
+}

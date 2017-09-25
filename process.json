@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "api-dev",
+      "script": "./dev",
+      "env_development": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "api-staging",
+      "script": "./staging",
+      "env_staging": {
+        "NODE_ENV": "staging"
+      }
+    },
+    {
+      "name": "api-production",
+      "script": "./dist",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
