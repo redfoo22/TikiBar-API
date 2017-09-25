@@ -10,12 +10,6 @@ the model submodule, it is necessary to run the following:
 
 #### TikiBar REST API with ES6 and Express.
 
-- ES6 support via [babel](https://babeljs.io)
-- REST resources as middleware via [resource-router-middleware](https://github.com/developit/resource-router-middleware)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
-- Body Parsing via [body-parser](https://github.com/expressjs/body-parser)
-- Automatically expose Models as REST resources using [restful-mongoose](https://git.io/restful-mongoose).
-- Unit Testing with [mocha](https://github.com/mochajs/mocha) and [chai](https://github.com/chaijs/chail)
 
 Getting Started
 ---------------
