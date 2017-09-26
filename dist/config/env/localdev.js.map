@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/config/env/localdev.js"],"names":["module","exports","port","db"],"mappings":"AAAA;;AAEAA,OAAOC,OAAP,GAAiB;AACfC,QAAM,IADS;AAEfC,MAAI;AAFW,CAAjB","file":"localdev.js","sourcesContent":["'use strict';\n\nmodule.exports = {\n  port: 3203,\n  db: 'mongodb://localhost/TikiBar-API-local'\n};\n"]}

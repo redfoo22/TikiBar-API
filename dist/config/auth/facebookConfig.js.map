@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/config/auth/facebookConfig.js"],"names":["module","exports","platform","clientID","clientSecret"],"mappings":";;AAAAA,OAAOC,OAAP,GAAiB;AACfC,YAAU,UADK;AAEfC,YAAU,EAFK;AAGfC,gBAAc;AAHC,CAAjB","file":"facebookConfig.js","sourcesContent":["module.exports = {\n  platform: 'facebook',\n  clientID: '',\n  clientSecret: ''\n}\n"]}

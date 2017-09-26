@@ -60,6 +60,28 @@ api.get('/byDisplayName/:displayName', (req, res) => {
     });
 });
 
+// POST update user location
+// {
+//    userId: userId,
+//    location: location
+// }
+// '/v1/userData/addUser'
+api.post('/updateUserLocation', (req, res) => {
+  const userId = req.body.userId;
+  const location = req.body.location;
+
+  if (userId == null || location == null) {
+    res.status(409).json({ message: `You must enter a user id and location object` });
+  }
+  UserData.update({ _id: userId }, { $addToSet: { location: location} }, (err, user) => {
+    if (err) {
+      res.status(409).json({ message: `An error occurred: ${err.message}` });
+      return;
+    }
+    res.status(200).json({ message: 'Location successfully updated'});
+  });
+});
+
   // POST add new user
   // {
   //    displayName: 'RedFoo',

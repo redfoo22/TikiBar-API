@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/config/auth/googleConfig.js"],"names":["module","exports","platform","clientID","clientSecret"],"mappings":";;AAAAA,OAAOC,OAAP,GAAiB;AACbC,cAAU,QADG;AAEbC,cAAU,EAFG;AAGbC,kBAAc;AAHD,CAAjB","file":"googleConfig.js","sourcesContent":["module.exports = {\n    platform: 'google',\n    clientID: '',\n    clientSecret: ''\n}\n"]}
