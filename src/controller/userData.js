@@ -30,10 +30,6 @@ api.get('/byId/:id', (req, res) => {
   UserData
     .findById(req.params.id)
     .populate({
-        path: 'currentLocation',
-        model: 'Location'
-      })
-    .populate({
       path: 'journeys',
       model: 'Journey'
     })
@@ -51,10 +47,6 @@ api.get('/byId/:id', (req, res) => {
 api.get('/byDisplayName/:displayName', (req, res) => {
   UserData
     .findOne({ 'displayName': req.params.displayName })
-    .populate({
-        path: 'currentLocation',
-        model: 'Location'
-      })
     .populate({
       path: 'journeys',
       model: 'Journey'
