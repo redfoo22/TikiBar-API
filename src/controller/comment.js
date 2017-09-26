@@ -33,10 +33,6 @@ export default ({ config, db }) => {
           path: 'comments',
           model: 'Comment'
         })
-      .populate({
-        path: 'location',
-        model: 'Location'
-      })
       .exec((err, comment) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
@@ -46,19 +42,15 @@ export default ({ config, db }) => {
       });
   });
 
-  // GET Specific comment by journeyId
-  // '/v1/comments/byJourneyId/:journeyId'
-  api.get('/byJourneyId/:journeyId', (req, res) => {
+  // GET Specific comment by momentId
+  // '/v1/comments/byMomentId/:momentId'
+  api.get('/byMomentId/:momentId', (req, res) => {
     Comment
-      .findOne({ 'journeyId': req.params.userId })
+      .find({ 'momentId': req.params.momentId })
       .populate({
           path: 'comments',
           model: 'Comment'
         })
-      .populate({
-        path: 'location',
-        model: 'Location'
-      })
       .exec((err, comment) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
@@ -83,12 +75,9 @@ export default ({ config, db }) => {
     const userId = req.body.userId;
     const userProfileImgUrl = req.body.userProfileImgUrl;
     const displayName = req.body.displayName;
-    const title = req.body.title;
     const text = req.body.text;
-    const mediaUrls = req.body.mediaUrls;
-    const location = req.body.location;
 
-    if (journeyId == null) {
+    if (momentId == null) {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
@@ -99,14 +88,11 @@ export default ({ config, db }) => {
           return;
         }
         let newComment = new Comment({
-          momentId: momentId,
-          userId: userId,
-          userProfileImgUrl: userProfileImgUrl,
-          displayName: displayName,
-          title: title,
-          text: text,
-          mediaUrls: mediaUrls,
-          location: location
+            momentId: momentId,
+            userId: userId,
+            userProfileImgUrl: userProfileImgUrl,
+            displayName: displayName,
+            text: text
         });
         newComment.save(err => {
           if (err) {

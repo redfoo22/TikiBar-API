@@ -42,21 +42,21 @@ export default ({ config, db }) => {
       });
   });
 
-  // GET Specific moment by journeyId
+  // GET Specific moments by journeyId
   // '/v1/moments/byJourneyId/:journeyId'
   api.get('/byJourneyId/:journeyId', (req, res) => {
     Moment
-      .findOne({ 'journeyId': req.params.journeyId })
+      .find({ 'journeyId': req.params.userId })
       .populate({
           path: 'comments',
           model: 'Comment'
         })
-      .exec((err, moment) => {
+      .exec((err, moments) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
           return;
         }
-        res.status(200).json(moment);
+        res.status(200).json(moments);
       });
   });
 
