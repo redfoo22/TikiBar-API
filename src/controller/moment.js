@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { Router } from 'express';
 import Moment from '../model/moment';
+import Journey from '../model/journey';
 import bodyParser from 'body-parser';
 
 export default ({ config, db }) => {
@@ -87,20 +88,40 @@ export default ({ config, db }) => {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
-      let newMoment = new Moment({
-        journeyId: journeyId,
-        title: title,
-        description: description,
-        mediaUrls: mediaUrls,
-        location: location
-      });
-      newMoment.save(err => {
+    Journey
+      .findById(journeyId, (err, journey) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
-        } else {
-          res.send(newMoment);
+          return;
         }
+
+        if (!journey) {
+          res.status(404).json({ message: `User ID does not exist` });
+          return;
+        }
+
+        let newMoment = new Moment({
+          journeyId: journeyId,
+          title: title,
+          description: description,
+          mediaUrls: mediaUrls,
+          location: location
+        });
+
+        newMoment.save(err => {
+          if (err) {
+            res.status(409).json({ message: `An error occurred: ${err.message}` });
+            return;
+          }
+          Journey.update({ _id: journeyId }, { $addToSet: { moments: newMoment._id } }, (err, journey) => {
+            if (err) {
+              res.status(409).json({ message: `An error occurred: ${err.message}` });
+              return;
+            }
+            res.send(newMoment);
+        });
       });
+    });
   });
 
   return api;
