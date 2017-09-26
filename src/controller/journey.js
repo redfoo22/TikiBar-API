@@ -67,10 +67,11 @@ export default ({ config, db }) => {
   // }
   // '/v1/journeys/addJourney'
   api.post('/addJourney', (req, res) => {
+    const journeyId = req.body.newJourneyId;
     const userId = req.body.userId;
     const title = req.body.title;
 
-    if (title == null && userId == null) {
+    if (journeyId == null || title == null || userId == null) {
       res.status(409).json({ message: `You must enter a Title Name and user id` });
       return;
     }
@@ -85,6 +86,7 @@ export default ({ config, db }) => {
           return;
         }
         let newJourney = new Journey({
+          _id: journeyId,
           userId: userId,
           title: title
         });
