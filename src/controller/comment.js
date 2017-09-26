@@ -71,6 +71,7 @@ export default ({ config, db }) => {
   // POST add new Comment
   // {
   //    momentId: momentId,
+  //    userId: userId,
   //    title: 'RedFoo's Comment',
   //    description: "Cool stuff here",
   //    mediaUrls: ["www.image1.com"],
@@ -78,9 +79,12 @@ export default ({ config, db }) => {
   // }
   // '/v1/comments/addComment'
   api.post('/addComment', (req, res) => {
-    const journeyId = req.body.journeyId;
+    const momentId = req.body.momentId;
+    const userId = req.body.userId;
+    const userProfileImgUrl = req.body.userProfileImgUrl;
+    const displayName = req.body.displayName;
     const title = req.body.title;
-    const description = req.body.description;
+    const text = req.body.text;
     const mediaUrls = req.body.mediaUrls;
     const location = req.body.location;
 
@@ -88,26 +92,36 @@ export default ({ config, db }) => {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
-    // Moment
-    //   .findById(journeyId, (err, journey) => {
-    //     if (err) {
-    //       res.status(409).json({ message: `An error occurred: ${err.message}` });
-    //       return;
-    //     }
-      let newComment = new Comment({
-        journeyId: journeyId,
-        title: title,
-        description: description,
-        mediaUrls: mediaUrls,
-        location: location
-      });
-      newComment.save(err => {
+    Moment
+      .findById(momentId, (err, moment) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
-        } else {
-          res.send(newComment);
+          return;
         }
+        let newComment = new Comment({
+          momentId: momentId,
+          userId: userId,
+          userProfileImgUrl: userProfileImgUrl,
+          displayName: displayName,
+          title: title,
+          text: text,
+          mediaUrls: mediaUrls,
+          location: location
+        });
+        newComment.save(err => {
+          if (err) {
+            res.status(409).json({ message: `An error occurred: ${err.message}` });
+            return;
+          }
+          Moment.update({ _id: momentId }, { $addToSet: { comments: newComment._id } }, (err, moment) => {
+            if (err) {
+              res.status(409).json({ message: `An error occurred: ${err.message}` });
+              return;
+            }
+            res.send(newComment);
+        });
       });
+    });
   });
 
   return api;
