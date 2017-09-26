@@ -17,10 +17,10 @@ Getting Started
 # Install dependencies
 npm install
 
-# Start local development live-reload server port 3003:
+# Start local development live-reload server port 3203:
 npm run localdev
 
-# Requests made in the form http://localhost:3003/localdev/v1/endpoint
+# Requests made in the form http://localhost:3203/localdev/v1/endpoint
 
 # To build ES6 code
 npm run build-dev
