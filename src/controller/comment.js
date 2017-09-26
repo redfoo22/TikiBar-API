@@ -71,13 +71,14 @@ export default ({ config, db }) => {
   // }
   // '/v1/comments/addComment'
   api.post('/addComment', (req, res) => {
+    const commentId = req.body.newCommentId;
     const momentId = req.body.momentId;
     const userId = req.body.userId;
     const userProfileImgUrl = req.body.userProfileImgUrl;
     const displayName = req.body.displayName;
     const text = req.body.text;
 
-    if (momentId == null) {
+    if (commdentId == null || momentId == null) {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
@@ -88,6 +89,7 @@ export default ({ config, db }) => {
           return;
         }
         let newComment = new Comment({
+            _id: commentId,
             momentId: momentId,
             userId: userId,
             userProfileImgUrl: userProfileImgUrl,

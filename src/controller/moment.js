@@ -70,13 +70,14 @@ export default ({ config, db }) => {
   // }
   // '/v1/moments/addMoment'
   api.post('/addMoment', (req, res) => {
+    const momentId = req.body.newMomentId
     const journeyId = req.body.journeyId;
     const title = req.body.title;
     const description = req.body.description;
     const mediaUrls = req.body.mediaUrls;
     const location = req.body.location;
 
-    if (journeyId == null) {
+    if (momentId == null || journeyId == null) {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
@@ -93,6 +94,7 @@ export default ({ config, db }) => {
         }
 
         let newMoment = new Moment({
+          _id: momentId,
           journeyId: journeyId,
           title: title,
           description: description,
