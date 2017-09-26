@@ -65,7 +65,7 @@ api.get('/byDisplayName/:displayName', (req, res) => {
 //    userId: userId,
 //    location: location
 // }
-// '/v1/userData/addUser'
+// '/v1/userData/updateUserLocation'
 api.post('/updateUserLocation', (req, res) => {
   const userId = req.body.userId;
   const location = req.body.location;
