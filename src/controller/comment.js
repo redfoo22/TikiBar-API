@@ -88,12 +88,12 @@ export default ({ config, db }) => {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
-    Moment
-      .findById(journeyId, (err, journey) => {
-        if (err) {
-          res.status(409).json({ message: `An error occurred: ${err.message}` });
-          return;
-        }
+    // Moment
+    //   .findById(journeyId, (err, journey) => {
+    //     if (err) {
+    //       res.status(409).json({ message: `An error occurred: ${err.message}` });
+    //       return;
+    //     }
       let newComment = new Comment({
         journeyId: journeyId,
         title: title,
