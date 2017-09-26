@@ -73,7 +73,7 @@ api.post('/updateUserLocation', (req, res) => {
   if (userId == null || location == null) {
     res.status(409).json({ message: `You must enter a user id and location object` });
   }
-  UserData.update({ _id: userId }, { $addToSet: { location: location} }, (err, user) => {
+  UserData.update({ _id: userId }, { $addToSet: { currentLocation: location} }, (err, user) => {
     if (err) {
       res.status(409).json({ message: `An error occurred: ${err.message}` });
       return;
