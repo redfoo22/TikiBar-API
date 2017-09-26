@@ -20,9 +20,9 @@ initializeDb( db => {
 
 	// api routes v1 (/v1)
 	router.use('/userData', userData({ config, db }));
-	router.use('/journeys', journeys({config, db}));
-	router.use('/moments', moments({config, db}));
-	router.use('/comments', comments({config, db}));
+	router.use('/journeys', journeys({ config, db }));
+	router.use('/moments', moments({ config, db }));
+	router.use('/comments', comments({ config, db }));
 });
 
 export default router;
