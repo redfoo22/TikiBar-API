@@ -8,7 +8,10 @@ let userDataSchema = new Schema({
   displayName: { type: String, default: "" },
   profileImageUrl: { type: String, default: "" },
   journeys: [{ type: ObjectId, ref: 'Journey' }],
-  currentLocation: { type: ObjectId, ref: 'Location'}
+  currentLocation: {
+    latitude: { type: Number, default: 0 },
+    longitude: { type: Number, default: 0 }
+  }
 });
 
 module.exports = mongoose.model('UserData', userDataSchema, 'userData');

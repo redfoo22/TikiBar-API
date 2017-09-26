@@ -33,10 +33,6 @@ export default ({ config, db }) => {
           path: 'comments',
           model: 'Comment'
         })
-      .populate({
-        path: 'location',
-        model: 'Location'
-      })
       .exec((err, moment) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
@@ -50,15 +46,11 @@ export default ({ config, db }) => {
   // '/v1/moments/byJourneyId/:journeyId'
   api.get('/byJourneyId/:journeyId', (req, res) => {
     Moment
-      .findOne({ 'journeyId': req.params.userId })
+      .findOne({ 'journeyId': req.params.journeyId })
       .populate({
           path: 'comments',
           model: 'Comment'
         })
-      .populate({
-        path: 'location',
-        model: 'Location'
-      })
       .exec((err, moment) => {
         if (err) {
           res.status(409).json({ message: `An error occurred: ${err.message}` });
@@ -96,7 +88,7 @@ export default ({ config, db }) => {
         }
 
         if (!journey) {
-          res.status(404).json({ message: `User ID does not exist` });
+          res.status(404).json({ message: `Journey ID does not exist` });
           return;
         }
 

@@ -12,7 +12,7 @@ let commentResponseSchema = new Schema({
   updated: { type: Date, default: Date.now },
   userId : { type: ObjectId, ref: 'UserData', required: [true, 'Error validating userId'] },
   userProfileImgUrl: { type: String },
-  userName: { type: String },
+  displayName: { type: String },
   flaggedCount: {type: Number, default: 0}
 });
 
@@ -20,7 +20,7 @@ let commentSchema = new Schema({
   momentId: { type: ObjectId, ref: 'Moment', required: [true, 'Error validating momentId']},
   userId : { type: ObjectId, ref: 'UserData', required: [true, 'Error validating userId'] },
   userProfileImgUrl: { type: String },
-  userName: { type: String },
+  displayName: { type: String },
   updated: { type: Date, default: Date.now },
   text: {type: String, required: [true]},
   responses: [commentResponseSchema],

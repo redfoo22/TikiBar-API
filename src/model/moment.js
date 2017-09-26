@@ -13,7 +13,10 @@ let momentSchema = new Schema({
   totalLikes: { type: Number, default: 0 },
   timestamp: { type: Date, default: Date.now()},
   comments: [{ type: ObjectId, ref: 'Comment' }],
-  location: { type: ObjectId, ref: 'Location'}
+  location: {
+    latitude: { type: Number, default: 0 },
+    longitude: { type: Number, default: 0 }
+  }
 });
 
 module.exports = mongoose.model('Moment', momentSchema, 'moment');

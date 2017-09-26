@@ -7,7 +7,6 @@ import userData from '../controller/userData';
 import journeys from '../controller/journey';
 import moments from '../controller/moment';
 import comments from '../controller/comment';
-import locations from '../controller/location';
 
 let router = express();
 
@@ -21,10 +20,9 @@ initializeDb( db => {
 
 	// api routes v1 (/v1)
 	router.use('/userData', userData({ config, db }));
-	router.use('/journeys', comments({config, db}));
-	router.use('/moments', comments({config, db}));
+	router.use('/journeys', journeys({config, db}));
+	router.use('/moments', moments({config, db}));
 	router.use('/comments', comments({config, db}));
-	router.use('/locations', comments({config, db}));
 });
 
 export default router;

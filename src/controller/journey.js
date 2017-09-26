@@ -64,7 +64,6 @@ export default ({ config, db }) => {
   // {
   //    userId: userId,
   //    title: 'RedFoo's Journey',
-  //    moments: [Moment],
   // }
   // '/v1/journeys/addJourney'
   api.post('/addJourney', (req, res) => {
