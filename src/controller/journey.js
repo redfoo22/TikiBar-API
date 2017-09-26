@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { Router } from 'express';
 import Journey from '../model/journey';
+import UserData from '../model/userData';
 import bodyParser from 'body-parser';
 
 export default ({ config, db }) => {
@@ -74,17 +75,34 @@ export default ({ config, db }) => {
       res.status(409).json({ message: `You must enter a Title Name and user id` });
       return;
     }
-      let newJourney = new Journey({
-        userId: userId,
-        title: title
-      });
-      newJourney.save(err => {
+    UserData
+      .findById(userId, (err, user) => {
         if (err) {
-          res.status(409).json({ message: `An error occurred: ${err.message}` });
-        } else {
-          res.send(newJourney);
+          res.status(500).json({ message: `An error occurred: ${err.message}` });
+          return;
         }
+        if (!user) {
+          res.status(404).json({ message: `User ID does not exist` });
+          return;
+        }
+        let newJourney = new Journey({
+          userId: userId,
+          title: title
+        });
+        newJourney.save(err => {
+          if (err) {
+            res.status(409).json({ message: `An error occurred: ${err.message}` });
+            return;
+          }
+          UserData.update({ _id: userId }, { $addToSet: { journeys: newJourney._id } }, (err, user) => {
+            if (err) {
+              res.status(500).json({ message: `An error occurred: ${err.message}` });
+              return;
+            }
+            res.send(newJourney);
+        });
       });
+    });
   });
 
   return api;

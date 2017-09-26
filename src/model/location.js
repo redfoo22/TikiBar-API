@@ -5,8 +5,8 @@ let Schema = mongoose.Schema;
 let ObjectId = mongoose.Schema.Types.ObjectId;
 
 let locationSchema = new Schema({
-  latitude: { type: Number, default: 45.585 },
-  longitude: { type: Number, default: -122.703 }
+  latitude: { type: Number },
+  longitude: { type: Number}
 });
 
 module.exports = mongoose.model('Location', locationSchema, 'location');
