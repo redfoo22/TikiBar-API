@@ -69,11 +69,11 @@ api.get('/byDisplayName/:displayName', (req, res) => {
 api.post('/updateUserLocation', (req, res) => {
   const userId = req.body.userId;
   const location = req.body.location;
-
+  console.log(location);
   if (userId == null || location == null) {
     res.status(409).json({ message: `You must enter a user id and location object` });
   }
-  UserData.update({ _id: userId }, { $addToSet: { currentLocation: location} }, (err, user) => {
+  UserData.update({ _id: userId }, { currentLocation: location }, (err, user) => {
     if (err) {
       res.status(409).json({ message: `An error occurred: ${err.message}` });
       return;
