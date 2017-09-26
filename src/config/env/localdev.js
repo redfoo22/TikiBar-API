@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-  port: 3003,
+  port: 3203,
   db: 'mongodb://localhost/TikiBar-API-local'
 };

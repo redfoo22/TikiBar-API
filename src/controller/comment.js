@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { Router } from 'express';
 import Comment from '../model/comment';
+import Moment from '../model/moment';
 import bodyParser from 'body-parser';
 
 export default ({ config, db }) => {
@@ -69,7 +70,7 @@ export default ({ config, db }) => {
 
   // POST add new Comment
   // {
-  //    journeyId: journeyId,
+  //    momentId: momentId,
   //    title: 'RedFoo's Comment',
   //    description: "Cool stuff here",
   //    mediaUrls: ["www.image1.com"],
@@ -87,6 +88,12 @@ export default ({ config, db }) => {
       res.status(409).json({ message: `You must enter a journey id` });
       return;
     }
+    Moment
+      .findById(journeyId, (err, journey) => {
+        if (err) {
+          res.status(409).json({ message: `An error occurred: ${err.message}` });
+          return;
+        }
       let newComment = new Comment({
         journeyId: journeyId,
         title: title,

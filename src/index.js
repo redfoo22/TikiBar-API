@@ -41,8 +41,8 @@ switch (process.env.NODE_ENV) {
 }
 
 
-app.server.listen(config.port || 3010);
+app.server.listen(config.port || 3210);
 console.log(`NODE_ENV=${process.env.NODE_ENV}`);
-console.log(`Started on port ${config.port || 3010}`);
+console.log(`Started on port ${config.port || 3210}`);
 
 export default app;
