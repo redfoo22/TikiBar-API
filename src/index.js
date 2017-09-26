@@ -23,7 +23,7 @@ app.use(bodyParser.json({
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    // api routes v1 (http://api.devslopes.com/v1)
+    // api routes v1 (https://api.devslopes.com/tikiBar/v1)
     app.use('/v1', routes);
     break;
   case 'staging':
