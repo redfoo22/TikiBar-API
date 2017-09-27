@@ -35,7 +35,7 @@ class UserDataExt {
     });
   }
 
-  static updateUserLocation = (userId) => {
+  static updateUserLocation = (userId, location) => {
     return new Promise((resolve, reject) => {
       UserData.update({ _id: userId }, { currentLocation: location })
       .exec((err, user) => {

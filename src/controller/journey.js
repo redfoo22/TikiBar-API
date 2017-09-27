@@ -78,7 +78,7 @@ export default ({ config, db }) => {
         res.status(409).json({ message: `An error occurred: ${err.message}` });
         return;
       }
-      UserDataExt.updateUserLocation(journey.userId)
+      UserDataExt.updateUserLocation(journey.userId, location)
       .then(user => {
       });
       res.status(200).json({ message: 'Location successfully updated'});
