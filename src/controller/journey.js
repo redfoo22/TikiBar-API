@@ -80,8 +80,8 @@ export default ({ config, db }) => {
       }
       UserDataExt.updateUserLocation(journey.userId)
       .then(user => {
-        res.status(200).json({ message: 'Location successfully updated'});
       });
+      res.status(200).json({ message: 'Location successfully updated'});
     });
   });
 
