@@ -34,7 +34,22 @@ class UserDataExt {
       });
     });
   }
-  
+
+  static updateUserLocation = (userId) => {
+    return new Promise((resolve, reject) => {
+      UserData.update({ _id: userId }, { currentLocation: location })
+      .exec((err, user) => {
+        if (err) {
+          reject("Error finding User.");
+        }
+        if (!user){
+          reject("Unable to find User.");
+        }
+        resolve(user)
+      });
+    });
+  }
+
 }
 
 export default UserDataExt;

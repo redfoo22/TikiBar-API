@@ -69,7 +69,6 @@ api.get('/byDisplayName/:displayName', (req, res) => {
 api.post('/updateUserLocation', (req, res) => {
   const userId = req.body.userId;
   const location = req.body.location;
-  console.log(location);
   if (userId == null || location == null) {
     res.status(409).json({ message: `You must enter a user id and location object` });
   }

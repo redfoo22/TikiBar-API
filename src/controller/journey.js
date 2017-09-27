@@ -5,6 +5,7 @@ mongoose.Promise = Promise;
 import { Router } from 'express';
 import Journey from '../model/journey';
 import UserData from '../model/userData';
+import UserDataExt from './extensions/userData-ext';
 import bodyParser from 'body-parser';
 
 export default ({ config, db }) => {
@@ -60,6 +61,30 @@ export default ({ config, db }) => {
       });
   });
 
+  // POST update journey location
+  // {
+  //    journeyId: journeyId,
+  //    location: location
+  // }
+  // '/v1/journeys/updateJourneyLocation'
+  api.post('/updateJourneyLocation', (req, res) => {
+    const journeyId = req.body.journeyId;
+    const location = req.body.location;
+    if (journeyId == null || location == null) {
+      res.status(409).json({ message: `You must enter a user id and location object` });
+    }
+    Journey.update({ _id: journeyId }, { $addToSet: { locations: location } }, (err, journey) => {
+      if (err) {
+        res.status(409).json({ message: `An error occurred: ${err.message}` });
+        return;
+      }
+      UserDataExt.updateUserLocation(journey.userId)
+      .then(user => {
+        res.status(200).json({ message: 'Location successfully updated'});
+      });
+    });
+  });
+
   // POST add new Journey
   // {
   //    userId: userId,
@@ -72,13 +97,13 @@ export default ({ config, db }) => {
     const title = req.body.title;
 
     if (journeyId == null || title == null || userId == null) {
-      res.status(409).json({ message: `You must enter a Title Name and user id` });
+      res.status(409).json({ message: `You must enter a journeyId, Title Name and user id` });
       return;
     }
     UserData
       .findById(userId, (err, user) => {
         if (err) {
-          res.status(500).json({ message: `An error occurred: ${err.message}` });
+          res.status(409).json({ message: `An error occurred: ${err.message}` });
           return;
         }
         if (!user) {
