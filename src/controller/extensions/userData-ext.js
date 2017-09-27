@@ -34,23 +34,6 @@ class UserDataExt {
       });
     });
   }
-
-  static updateUserLocation = (userId, location) => {
-    return new Promise((resolve, reject) => {
-      UserData
-      .findById(userId)
-      .exec((err, user) => {
-        if (err) {
-          reject("Error finding User.");
-        }
-        if (!user){
-          reject("Unable to find User.");
-        }
-        resolve(user)
-      });
-    });
-  }
-
 }
 
 export default UserDataExt;
