@@ -37,7 +37,8 @@ class UserDataExt {
 
   static updateUserLocation = (userId, location) => {
     return new Promise((resolve, reject) => {
-      UserData.update({ _id: userId }, { currentLocation: location })
+      UserData
+      .findById(userId)
       .exec((err, user) => {
         if (err) {
           reject("Error finding User.");
