@@ -46,7 +46,7 @@ export default ({ config, db }) => {
   // '/v1/moments/byJourneyId/:journeyId'
   api.get('/byJourneyId/:journeyId', (req, res) => {
     Moment
-      .find({ 'journeyId': req.params.userId })
+      .find({ 'journeyId': req.params.journeyId })
       .populate({
           path: 'comments',
           model: 'Comment'
