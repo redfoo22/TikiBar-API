@@ -78,8 +78,8 @@ export default ({ config, db }) => {
     const displayName = req.body.displayName;
     const text = req.body.text;
 
-    if (commdentId == null || momentId == null) {
-      res.status(409).json({ message: `You must enter a journey id` });
+    if (commentId == null || momentId == null) {
+      res.status(409).json({ message: `You must enter a comment id and moment id` });
       return;
     }
     Moment
