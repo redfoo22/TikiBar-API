@@ -83,12 +83,17 @@ api.post('/updateUserLocation', (req, res) => {
 
   // POST add new user
   // {
-  //    displayName: 'RedFoo',
-  //    profileImageUrl: 'www.myProfileImage.com',
+    //  displayName: 'RedFoo',
+    //  profileImageUrl: 'www.myProfileImage.com',
+    //  facebookId: String
+    //  fullName : String
   // }
   // '/v1/userData/addUser'
   api.post('/addUser', (req, res) => {
     const displayName = req.body.displayName;
+    const profileImageUrl = req.body.profileImageUrl;
+    const facebookId = req.body.facebookId;
+    const fullName = req.body.facebookId;
 
     if (displayName == null) {
       res.status(409).json({ message: `You must enter a Display name` });
@@ -106,6 +111,50 @@ api.post('/updateUserLocation', (req, res) => {
         res.send(newUserData);
       }
     });
+  });
+
+  // '/v1/userData/login'
+  api.post('/login', (req, res) => {
+    const profileImageUrl = req.body.profileImageUrl;
+    const facebookId = req.body.facebookId;
+    const fullName = req.body.fullName;
+
+    if (!profileImageUrl && !facebookId && !fullName) {
+      res.status(409).json({ message: `You must enter a profileImageUrl, facebookId and fullName` });
+      return;
+    }
+
+    UserData
+      .findOne({ 'facebookId': facebookId })
+      .populate({
+        path: 'journeys',
+        model: 'Journey'
+      })
+      .exec((err, userData) => {
+        if (err) {
+          res.status(409).json({ message: `An error occurred: ${err.message}` });
+          return;
+        }
+
+        if (userData) {
+          res.status(200).json(userData);
+        } else {
+          let newUserData = new UserData({
+            displayName: fullName,
+            profileImageUrl: profileImageUrl,
+            facebookId: facebookId,
+            fullName : fullName
+          });
+
+          newUserData.save(err => {
+            if (err) {
+              res.status(409).json({ message: `An error occurred: ${err.message}` });
+            } else {
+              res.send(newUserData);
+            }
+          });
+        }
+      });
   });
 
   return api;

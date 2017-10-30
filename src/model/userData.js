@@ -5,8 +5,10 @@ let Schema = mongoose.Schema;
 let ObjectId = mongoose.Schema.Types.ObjectId;
 
 let userDataSchema = new Schema({
-  displayName: { type: String, default: "" },
-  profileImageUrl: { type: String, default: "" },
+  displayName: { type: String },
+  profileImageUrl: { type: String },
+  facebookId: { type: String },
+  fullName: { type: String },
   journeys: [{ type: ObjectId, ref: 'Journey' }],
   currentLocation: {
     latitude: { type: Number, default: 0 },
