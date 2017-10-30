@@ -157,5 +157,34 @@ api.post('/updateUserLocation', (req, res) => {
       });
   });
 
+  // '/v1/userData/login'
+  api.post('/byFBId', (req, res) => {
+    const facebookId = req.body.facebookId;
+
+    if (!facebookId) {
+      res.status(409).json({ message: `You must enter a facebookId` });
+      return;
+    }
+
+    UserData
+      .findOne({ 'facebookId': facebookId })
+      .populate({
+        path: 'journeys',
+        model: 'Journey'
+      })
+      .exec((err, userData) => {
+        if (err) {
+          res.status(409).json({ message: `An error occurred: ${err.message}` });
+          return;
+        }
+
+        if (userData) {
+          res.status(200).json(userData);
+        } else {
+          res.status(409).json({ message: `No user found` });
+        }
+      });
+  });
+
   return api;
 }
